@@ -22,12 +22,12 @@ class Sensor:
         return datosJson
         
     def conexionMongo(self, datos):
-        cliente = pymongo.MongoClient("mongodb+srv://root:admin@cluster0.urq1yx8.mongodb.net/?retryWrites=true&w=majority")
+        cliente = pymongo.MongoClient("mongodb+srv://root:admin@cluster0.urq1yx8.mongodb.net/test", serverSelectionTimeoutMS=3000)
         # Selecciona una base de datos
         db = cliente["Prueba"]
         # Selecciona una colección
         collection = db["Datos"]
         # Ejemplo de inserción de un documento
         print("Llego a conexion")
-        x = collection.insert_one(datos)
+        collection.insert_one(datos)
         
