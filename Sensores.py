@@ -28,6 +28,6 @@ class Sensor:
         # Selecciona una colección
         collection = db["Datos"]
         # Ejemplo de inserción de un documento
-        
-        x = collection.insert_one(datos)
         print("Llego a conexion")
+        x = collection.insert_one(datos)
+        
