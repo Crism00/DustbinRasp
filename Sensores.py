@@ -30,3 +30,4 @@ class Sensor:
         # Ejemplo de inserción de un documento
         
         x = collection.insert_one(datos)
+        print("Llego a conexion")
