@@ -37,3 +37,4 @@ class Sensor:
         
         x = collection.insert_one(datos)
 
+        print("Llego a conexion")
