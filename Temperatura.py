@@ -7,10 +7,9 @@ import json
 import os.path
 
 class DHTSensor( ):
-    def __init__(self, pin, file_name,Pin):
+    def __init__(self, pin,Pin):
         super().__init__()
         self.dhtDevice = Adafruit_DHT.DHT11(pin)
-        self.file_name = file_name
         self.pin = Pin
 
     def get_temperatures(self):
@@ -49,3 +48,9 @@ class DHTSensor( ):
         print("2. Salir")
         opcion = int(input("Ingrese una opcion: "))
         return opcion
+    
+
+if __name__ == "__main__":
+    sensor = DHTSensor(16,16)
+    sensor.run()
+    sensor.limpiar()
