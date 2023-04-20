@@ -1,47 +1,54 @@
+import time
+import board
+import adafruit_dht
 import pymongo
-from datetime import datetime
-import Adafruit_DHT
-import RPi.GPIO as GPIO
 import json
 
-class Temperatura:
-    def __init__(self):
-        self.sensor = Adafruit_DHT.DHT11
-        self.pin = 16
-        GPIO.setmode(GPIO.BCM)
-        self.DHT_PIN = 16
+import os.path
 
-    def get_temperatura_humedad(self):
-        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, self.DHT_PIN)
-        if temperature is not None and humidity is not None:
-            datos = {"temperatura": temperature, "humedad": humidity, "fecha": datetime.now()}
-            return datos
-        else:
-            return {"temperatura": 0, "humedad": 0, "fecha": datetime.now()}
-        
-    def temHum(self):
-        print("Temperatura y humedad")
-        temperatura = Temperatura()
-        datos = temperatura.get_temperatura_humedad()
-        print("Temperatura: ", datos["temperatura"], "C")
-        print("Humedad: ", datos["humedad"], "%")
-        
-    def menu (self):
-        print("1. Temperatura y humedad")
-        print("2. Salir")
-        opcion = int(input("Ingrese una opcion: "))
-        return opcion
-    
+class DHTSensor( ):
+    def __init__(self, pin,Pin):
+        super().__init__()
+        self.dhtDevice = adafruit_dht.DHT11(pin)
+        self.pin = Pin
+
+    def get_temperatures(self):
+        try:
+            temperature_c = self.dhtDevice.temperature
+            temperature_f = temperature_c * (9 / 5) + 32
+            humidity = self.dhtDevice.humidity
+            return temperature_f, temperature_c, humidity
+        except RuntimeError as error:
+            print(error.args[0])
+            return None
+
+   
+    def limpiar(self):
+        self.dhtDevice.exit()
+
     def run(self):
         while True:
             opcion = self.menu()
             if opcion == 1:
-                self.temHum()
+                temperatures = self.get_temperatures()
+                if temperatures is not None:
+                    self.check_internet(*temperatures)
+                    print("Temperatura F: {:.1f}, Temperatura C: {:.1f}, Humedad: {}%".format(*temperatures))
+                    self.check_internet(*temperatures)
+
+                    
             elif opcion == 2:
                 break
             else:
                 print("Opcion no valida")
 
+    def menu(self):
+        print("1. Temperatura y humedad")
+        print("2. Salir")
+        opcion = int(input("Ingrese una opcion: "))
+        return opcion
+    
 if __name__ == "__main__":
-    temperatura = Temperatura()
-    temperatura.run()
+    dht = DHTSensor(board.D16, 16)
+    dht.menu()
+  
