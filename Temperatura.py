@@ -1,5 +1,5 @@
 import time
-import board
+
 import adafruit_dht
 import pymongo
 import json
