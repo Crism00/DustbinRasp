@@ -1,6 +1,6 @@
 import time
 import board
-import Adafruit_DHT
+import adafruit_dht
 import pymongo
 import json
 
@@ -9,7 +9,7 @@ import os.path
 class DHTSensor( ):
     def __init__(self, pin, Pin):
         super().__init__()
-        self.dhtDevice = Adafruit_DHT.DHT11(pin)
+        self.dhtDevice = adafruit_dht.DHT11(pin)
         self.pin = Pin
 
     def get_temperatures(self):
@@ -22,21 +22,6 @@ class DHTSensor( ):
             print(error.args[0])
             return None
 
-    def check_internet(self, temperature_c, temperature_f, humidity):
-        check_internet = CheckInternet()
-        status, message = check_internet.is_connected()
-        d = {
-            "Nombre": "DHT11",
-            "Temperatura": temperature_c,
-            "Fahrenheit": temperature_f,
-            "Humedad": humidity,
-            "Fecha": time.strftime("%d/%m/%y"),
-            "Hora": time.strftime("%H:%M:%S"),
-            "Pin": self.pin,
-            "Ubicacion": "Dentro del Carrito"
-        }
-        self.agregar(d)
-        self.save(d)
 
     def limpiar(self):
         self.dhtDevice.exit()
