@@ -51,5 +51,5 @@ class DHTSensor( ):
 if __name__ == "__main__":
      
      temperatura = DHTSensor(board.D16,16)
-     temperatura.menu()
+     temperatura.run()
        
