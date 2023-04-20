@@ -7,7 +7,7 @@ import json
 import os.path
 
 class DHTSensor( ):
-    def __init__(self, pin,Pin):
+    def __init__(self, pin, ,Pin):
         super().__init__()
         self.dhtDevice = adafruit_dht.DHT11(pin)
         self.pin = Pin
@@ -22,7 +22,22 @@ class DHTSensor( ):
             print(error.args[0])
             return None
 
-   
+    def check_internet(self, temperature_c, temperature_f, humidity):
+        check_internet = CheckInternet()
+        status, message = check_internet.is_connected()
+        d = {
+            "Nombre": "DHT11",
+            "Temperatura": temperature_c,
+            "Fahrenheit": temperature_f,
+            "Humedad": humidity,
+            "Fecha": time.strftime("%d/%m/%y"),
+            "Hora": time.strftime("%H:%M:%S"),
+            "Pin": self.pin,
+            "Ubicacion": "Dentro del Carrito"
+        }
+        self.agregar(d)
+        self.save(d)
+
     def limpiar(self):
         self.dhtDevice.exit()
 
@@ -49,6 +64,7 @@ class DHTSensor( ):
         return opcion
     
 if __name__ == "__main__":
-    dht = DHTSensor(board.D16, 16)
-    dht.menu()
-  
+     
+     temperatura = DHTSensor(board.D16,16)
+     temperatura.menu()
+       
