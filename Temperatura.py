@@ -17,7 +17,7 @@ class DHTSensor( ):
             temperature_c = self.dhtDevice.temperature
             temperature_f = temperature_c * (9 / 5) + 32
             humidity = self.dhtDevice.humidity
-            return temperature_f, temperature_c, humidity
+            return print("Temperatura F: {:.1f}, Temperatura C: {:.1f}, Humedad: {}%".format(temperature_f, temperature_c, humidity))
         except RuntimeError as error:
             print(error.args[0])
             return None
@@ -51,5 +51,5 @@ class DHTSensor( ):
 if __name__ == "__main__":
      
      temperatura = DHTSensor(board.D16,16)
-     temperatura.run()
+     temperatura.get_temperatures()
        
