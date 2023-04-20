@@ -26,30 +26,9 @@ class DHTSensor( ):
     def limpiar(self):
         self.dhtDevice.exit()
 
-    def run(self):
-        while True:
-            opcion = self.menu()
-            if opcion == 1:
-                temperatures = self.get_temperatures()
-                if temperatures is not None:
-                    self.check_internet(*temperatures)
-                    print("Temperatura F: {:.1f}, Temperatura C: {:.1f}, Humedad: {}%".format(*temperatures))
-                    self.check_internet(*temperatures)
-
-                    
-            elif opcion == 2:
-                break
-            else:
-                print("Opcion no valida")
-
-    def menu(self):
-        print("1. Temperatura y humedad")
-        print("2. Salir")
-        opcion = int(input("Ingrese una opcion: "))
-        return opcion
     
 if __name__ == "__main__":
-     
-     temperatura = DHTSensor(board.D16,16)
-     temperatura.get_temperatures()
-       
+    temperatura = DHTSensor(board.D16, 16)
+    while True:
+        temperatura.get_temperatures()
+        time.sleep(300)  # sleep for 5 minutes
