@@ -52,5 +52,4 @@ class DHTSensor( ):
 
 if __name__ == "__main__":
     sensor = DHTSensor(16,16)
-    sensor.run()
-    sensor.limpiar()
+    sensor.menu()
