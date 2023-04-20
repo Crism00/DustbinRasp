@@ -7,7 +7,7 @@ import json
 import os.path
 
 class DHTSensor( ):
-    def __init__(self, pin, ,Pin):
+    def __init__(self, pin, Pin):
         super().__init__()
         self.dhtDevice = adafruit_dht.DHT11(pin)
         self.pin = Pin
