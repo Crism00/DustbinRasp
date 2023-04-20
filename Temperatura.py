@@ -26,8 +26,22 @@ class Temperatura:
         print("Temperatura: ", datos["temperatura"], "C")
         print("Humedad: ", datos["humedad"], "%")
         
-   
+    def menu (self):
+        print("1. Temperatura y humedad")
+        print("2. Salir")
+        opcion = int(input("Ingrese una opcion: "))
+        return opcion
+    
+    def run(self):
+        while True:
+            opcion = self.menu()
+            if opcion == 1:
+                self.temHum()
+            elif opcion == 2:
+                break
+            else:
+                print("Opcion no valida")
 
-
-temperatura = Temperatura()
-temperatura.temHum()
+if __name__ == "__main__":
+    temperatura = Temperatura()
+    temperatura.run()
