@@ -1,6 +1,6 @@
 import time
 
-import adafruit_dht
+import Adafruit_DHT
 import pymongo
 import json
 
@@ -9,7 +9,7 @@ import os.path
 class DHTSensor( ):
     def __init__(self, pin, file_name,Pin):
         super().__init__()
-        self.dhtDevice = adafruit_dht.DHT11(pin)
+        self.dhtDevice = Adafruit_DHT.DHT11(pin)
         self.file_name = file_name
         self.pin = Pin
 
