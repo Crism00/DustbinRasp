@@ -27,4 +27,4 @@ if __name__ == "__main__":
     temperatura = DHTSensor(board.D16, 16)
     while True:
         temperatura.get_temperatures()
-        time.sleep(300)  # sleep for 5 minutes
+        time.sleep(30)  # sleep for 5 minutes
