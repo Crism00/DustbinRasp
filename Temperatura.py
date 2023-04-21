@@ -27,7 +27,8 @@ class DHTSensor( ):
             'tipo': 'Temperatura',
             'id_sensor': '6',
             'valor': {
-                'temperatura': temperature_c,
+                'temperatura_c': temperature_c,
+                'temperatura_f': temperature_f,
                 'humedad': humidity
             }
         }
