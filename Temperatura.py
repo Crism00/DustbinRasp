@@ -7,7 +7,7 @@ import json
 import os.path
 
 class DHTSensor( ):
-    def __init__(self, pin, Pin):
+    def __init__(self, pin, Pin, client):
         super().__init__()
         self.dhtDevice = adafruit_dht.DHT11(pin)
         self.pin = Pin
@@ -25,7 +25,20 @@ class DHTSensor( ):
             print(error.args[0])
             return None
         
-  
+    def save_to_mongo(self, temperature_c, temperature_f, humidity):
+        db = self.client['sensor_data']
+        temperatura_collection = db['temperatura']
+        temperatura_data = {
+            'tipo': 'Temperatura',
+            'id_sensor': '6',
+            'valor': {
+                'temperatura': temperature_c,
+                'temperatura:': temperature_f, 
+                'humedad': humidity
+            }
+        }
+        temperatura_collection.insert_one(temperatura_data)
+
         
 
     def limpiar(self):
@@ -33,29 +46,14 @@ class DHTSensor( ):
 
     
 if __name__ == "__main__":
-   
-    client = pymongo.MongoClient("mongodb+srv://admin:1234@cluster0.qf2sgqk.mongodb.net/test")
-    db = client.test_database
-    collection = db.test_collection
-    temperatura = DHTSensor(board.D16,16)
-
+    client = pymongo.MongoClient("mongodb+srv://admin:1234admin@cluster0.qf2sgqk.mongodb.net/test")
+    temperatura = DHTSensor(board.D16, 16,client)
     while True:
+
         temperature_c, temperature_f, humidity = temperatura.get_temperatures()
-        if temperature_c is not None and humidity is not None:
-            # Create a dictionary object to store the data
-            data = {"temperature_c": temperature_c, "temperature_f": temperature_f, "humidity": humidity}
-
-            # Insert the data into the MongoDB collection
-            collection.insert_one(data)
-
-            print("Temp: {:.1f} F / {:.1f} C    Humidity: {}% ".format(temperature_f, temperature_c, humidity))
-        else:
-            print("Failed to retrieve data from sensor")
-
-        time.sleep(20)
+        temperatura.save_to_mongo(temperature_c, temperature_f, humidity)
 
 
+        print("Temp: {:.1f} F / {:.1f} C    Humidity: {}% ".format(temperature_f, temperature_c, humidity))
 
-
-
-
+        time.sleep(20)  # 
