@@ -51,8 +51,9 @@ if __name__ == "__main__":
     while True:
 
         temperature_c, temperature_f, humidity = temperatura.get_temperatures()
+        temperatura.save_to_mongo(temperature_c, temperature_f, humidity)
 
 
         print("Temp: {:.1f} F / {:.1f} C    Humidity: {}% ".format(temperature_f, temperature_c, humidity))
 
-        time.sleep(30)  # sleep for 5 minutes
+        time.sleep(20)  # 
