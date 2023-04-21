@@ -2,6 +2,9 @@ import time
 import board
 import adafruit_dht
 import pymongo
+import json
+
+import os.path
 
 class DHTSensor( ):
     def __init__(self, pin, Pin):
@@ -18,11 +21,12 @@ class DHTSensor( ):
         except RuntimeError as error:
             print(error.args[0])
             return None
-    
-  
+        
+
     def limpiar(self):
         self.dhtDevice.exit()
 
+    
 if __name__ == "__main__":
     temperatura = DHTSensor(board.D16, 16)
     while True:
