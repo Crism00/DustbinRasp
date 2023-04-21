@@ -39,7 +39,7 @@ if __name__ == "__main__":
     collection = db.test_collection
 
     # Create a DHTSensor object
-    temperatura = DHTSensor(board.D16)
+    temperatura = DHTSensor(board.D16,16)
 
     while True:
         temperature_c, temperature_f, humidity = temperatura.get_temperatures()
