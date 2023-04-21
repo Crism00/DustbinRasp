@@ -31,8 +31,8 @@ class DHTSensor( ):
         temperatura_data = {
             'tipo': 'Temperatura',
             'id_sensor': 6,
-            'valor_temperatura':  temperature_c,
-            'valor_humedad': humidity
+            'valor1':  temperature_c ,
+            'valor2': humidity
             
         }
         temperatura_collection.insert_one(temperatura_data)
@@ -41,7 +41,7 @@ class DHTSensor( ):
         sensor_data = {
             'id_sensor': 6,
             'pin_in': self.pin,
-            'pin_out': self.pin,
+            'pin_out':0,
             'descripcion': ' sensor de temperatura y humedad'
         }
         sensor_collection.insert_one(sensor_data)
