@@ -25,10 +25,13 @@ class DHTSensor( ):
         except RuntimeError as error:
             print(error.args[0])
             return None
+        
+
     def save_to_mongo(self, temperature_c, temperature_f, humidity):
         db = self.client['sensor_data']
-        temperatura_collection = db['temperatura']
-        temperatura_data = {
+
+        # Save temperature data to a JSON document
+        temperatura_doc = {
             'tipo': 'Temperatura',
             'id_sensor': '6',
             'valor': {
@@ -37,16 +40,25 @@ class DHTSensor( ):
                 'humedad': humidity
             }
         }
-        temperatura_collection.insert_one(temperatura_data)
+        temperatura_json = json.dumps(temperatura_doc)
 
-        sensor_collection = db['sensor']
-        sensor_data = {
+        # Insert temperature data JSON into collection
+        temperatura_collection = db['temperatura']
+        temperatura_collection.insert_one(json.loads(temperatura_json))
+
+        # Save sensor data to a JSON document
+        sensor_doc = {
             'id_sensor': '6',
             'pin_in': 'D16',
             'pin_out': 'D16',
             'descripcion': 'Sensor de temperatura y humedad DHT11'
         }
-        sensor_collection.insert_one(sensor_data)
+        sensor_json = json.dumps(sensor_doc)
+
+        # Insert sensor data JSON into collection
+        sensor_collection = db['sensor']
+        sensor_collection.insert_one(json.loads(sensor_json))
+
     
     
 
