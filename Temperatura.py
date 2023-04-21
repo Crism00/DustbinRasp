@@ -30,20 +30,19 @@ class DHTSensor( ):
         temperatura_collection = db['temperatura']
         temperatura_data = {
             'tipo': 'Temperatura',
-            'id_sensor': '6',
-            'valor': {
-                'temperatura': temperature_c,
-                'humedad': humidity
-            }
+            'id_sensor': 6,
+            'valor_temperatura':  temperature_c,
+            'valor_humedad': humidity
+            
         }
         temperatura_collection.insert_one(temperatura_data)
 
         sensor_collection = db['sensor']
         sensor_data = {
-            'id_sensor': '6',
-            'pin_in': 'D16',
-            'pin_out': 'D16',
-            'descripcion': ''
+            'id_sensor': 6,
+            'pin_in': self.pin,
+            'pin_out': self.pin,
+            'descripcion': ' sensor de temperatura y humedad'
         }
         sensor_collection.insert_one(sensor_data)
 
