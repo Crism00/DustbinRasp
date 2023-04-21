@@ -19,7 +19,7 @@ class DHTSensor( ):
             humidity = self.dhtDevice.humidity
             
             
-            return print("Temperatura F: {:.1f}, Temperatura C: {:.1f}, Humedad: {}%".format(temperature_f, temperature_c, humidity))
+            return temperature_c, temperature_f, humidity
         except RuntimeError as error:
             print(error.args[0])
             return None
@@ -48,7 +48,10 @@ if __name__ == "__main__":
     temperatura = DHTSensor(board.D16, 16)
     while True:
 
-        temperatura.get_temperatures()
+        temperature_c, temperature_f, humidity = temperatura.get_temperatures()
+
+
         temperatura.save_to_mongo(temperature_c, temperature_f, humidity)
+        print("Temp: {:.1f} F / {:.1f} C    Humidity: {}% ".format(temperature_f, temperature_c, humidity))
 
         time.sleep(30)  # sleep for 5 minutes
