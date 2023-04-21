@@ -7,10 +7,11 @@ import json
 import os.path
 
 class DHTSensor( ):
-    def __init__(self, pin, Pin):
+    def __init__(self, pin, Pin, client):
         super().__init__()
         self.dhtDevice = adafruit_dht.DHT11(pin)
         self.pin = Pin
+        self.client = client
 
     def get_temperatures(self):
         try:
@@ -45,7 +46,8 @@ class DHTSensor( ):
 
     
 if __name__ == "__main__":
-    temperatura = DHTSensor(board.D16, 16)
+    client = pymongo.MongoClient("mongodb+srv://admin:<password>@cluster0.qf2sgqk.mongodb.net/test")
+    temperatura = DHTSensor(board.D16, 16,client)
     while True:
 
         temperature_c, temperature_f, humidity = temperatura.get_temperatures()
