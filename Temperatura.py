@@ -46,7 +46,7 @@ class DHTSensor( ):
 
     
 if __name__ == "__main__":
-    client = pymongo.MongoClient("mongodb+srv://admin:<password>@cluster0.qf2sgqk.mongodb.net/test")
+    client =pymongo.MongoClient("mongodb+srv://admin:<password>@cluster0.qf2sgqk.mongodb.net/test")
     temperatura = DHTSensor(board.D16, 16,client )
     while True:
         temperatura.get_temperatures()
