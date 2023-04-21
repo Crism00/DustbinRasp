@@ -34,7 +34,7 @@ class DHTSensor( ):
     
 if __name__ == "__main__":
     # Connect to MongoDB
-    client = pymongo.MongoClient("<mongo_uri>")
+    client = pymongo.MongoClient("mongodb+srv://admin:<password>@cluster0.qf2sgqk.mongodb.net/test")
     db = client.test_database
     collection = db.test_collection
 
